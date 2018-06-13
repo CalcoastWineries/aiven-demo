@@ -4,6 +4,7 @@ import time
 # This script connects to Kafka and send a few messages 
 from kafka import KafkaProducer
 
+# Connection info for Kafka
 producer = KafkaProducer(
     bootstrap_servers=sys.argv[1],
     security_protocol="SSL",
@@ -14,6 +15,7 @@ producer = KafkaProducer(
 
 print ("Hello World!  I am Kafka Producer.")
 
+# Monitoring for new entries
 def follow(thefile):
   thefile.seek(0,2)
   while True:
@@ -23,13 +25,12 @@ def follow(thefile):
       continue
     yield line
 
+
 if __name__ == '__main__':
   logfile = open('/var/log/auth.log', 'r')
   loglines = follow(logfile)
   for line in loglines:
-#    print ('do something here')
-#    print (line)
-
+    # write the messages to Kafka
     print("I am Sending: {}".format(line))
     producer.send("auth.log", line.encode("utf-8"))
 
