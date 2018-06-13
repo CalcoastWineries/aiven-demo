@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import sys
 import time
-# This script receives messages from a Kafka topic
 from kafka import KafkaConsumer
 from psycopg2.extras import RealDictCursor
 import psycopg2
@@ -17,7 +16,7 @@ consumer = KafkaConsumer(
     ssl_keyfile="service.key",
 )
 
-#uri = "postgres://avnadmin:m3382yo5hlz9aopp@pg-19209ef7-freddyso-c424.aivencloud.com:11141/kafka-demo?sslmode=require"
+# setup postgresql db connecdtion
 uri = sys.argv[2]
 
 db_conn = psycopg2.connect(uri)
@@ -25,6 +24,8 @@ c = db_conn.cursor(cursor_factory=RealDictCursor)
 
 print ("Hello World! I am Kafka Consumer.")
 
+# receiveing messages from a Kafka topic
+# insert messages into postgresql
 while True:
   raw_msgs = consumer.poll(timeout_ms=1000)
   for tp, msgs in raw_msgs.items():
