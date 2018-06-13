@@ -11,7 +11,7 @@ kafka-demo.sql - to be used to create the table authlog_messages
 Setup:
 
 On the Aiven Service Cnsole, create an Aiven Kafka Service and then create "auth.log" topic,
-Note that the SSL certificate files from the Aiven Kafka Servie just created.  They needed to be downloaded by clicking the "Show CA certificate" as ca.pem, "Show access certificate" as service.cert and "Show access key buttons" as service.key.  Record the service url for running both the producer.py and the consumer.py.
+Note that the SSL certificate files from the Aiven Kafka Servie just created.  They needed to be downloaded by clicking the "Show CA certificate" as ca.pem, "Show access certificate" as service.cert and "Show access key buttons" as service.key.  These must be saved in the same directory where producer.py and consumser.py run.  Record the service url for running both the producer.py and the consumer.py.
 
     e.g. "kafka-32fe272c-freddyso-c424.aivencloud.com:11143"
     
@@ -22,7 +22,7 @@ Again, on the Aiven Service Cnsole, create an Aiven PostgreSQL Service and then 
 On the testing system CLI, create table using kafta-demo.sql with the PostgreSQL client
   
     e.g. vagrant@vagrant:~$ psql postgres://avnadmin:m3382yo5hlz9aopp@pg-19209ef7-freddyso-c424.aivencloud.com:11141/kafka-demo?sslmode=require < kafka-demo.sql
-  
+
 To run the producer, pass in the kafka service URL
     e.g. vagrant@vagrant:~$ ./producer.py "kafka-32fe272c-freddyso-c424.aivencloud.com:11143"
   
